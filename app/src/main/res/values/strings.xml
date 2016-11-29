@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">计算器</string>
+    <string name="notOpen">科学计算器暂未开放</string>
+</resources>
