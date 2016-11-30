@@ -16,24 +16,32 @@
             android:onClick="onClick"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_turn_slector"
-            android:layout_gravity="center_vertical|right"
+            android:layout_gravity="center_vertical|end"
             android:layout_width="40dp"
             android:layout_height="40dp" />
-        <TextView android:layout_weight="2"
-            android:id="@+id/text_result"
+
+        <TextView android:id="@+id/text_result"
+            android:layout_weight="2"
             style="@style/textStyle"
-            android:gravity="center_vertical|right"
+            android:gravity="center_vertical|end"
+            android:layout_gravity="center_vertical|end"
             android:textColor="#979CA4"
             android:text="0"
-            android:textSize="30sp" />
-
-        <TextView android:layout_weight="3"
+            android:textSize="54sp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content" />
+        <TextView android:layout_weight="2"
             android:id="@+id/text_express"
             style="@style/textStyle"
             android:text="0"
-            android:gravity="top|right"
+            android:gravity="top|end"
+            android:layout_gravity="top|end"
             android:textColor="#000000"
-            android:textSize="50sp" />
+            android:layout_width="wrap_content"
+            android:textSize="54sp" />
+        <LinearLayout android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"></LinearLayout>
     </LinearLayout>
     <LinearLayout android:orientation="vertical"
         android:layout_weight="5"

@@ -17,15 +17,15 @@ public class Manger {
     {
         priorityMap.put("+",0);
         priorityMap.put("-",0);
-        priorityMap.put("*", 1);
-        priorityMap.put("/", 1);
+        priorityMap.put("×", 1);
+        priorityMap.put("÷", 1);
     }
 
-    private boolean IsOperator(String str){
-        if(str.matches("[0-9]+")||str.indexOf(".")!=-1){
-            return false;
-        }
-        return true;
+    private static boolean IsOperator(String str){
+        return !isNum(str);
+    }
+    public static boolean isNum(String str){
+        return str.matches("-?[0-9]+.*[0-9]*");
     }
 
     private int getPriority(String op)//得到一个操作符的优先级
