@@ -41,24 +41,24 @@ public class MainActivity extends AppCompatActivity{
         Animation scaleAnimation=new ScaleAnimation(form,to,form,to,
                 Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.5f);
 
-        scaleAnimation.setDuration(duration);//设置动画持续时间为3秒
+        scaleAnimation.setDuration(duration);
         scaleAnimation.setInterpolator(new DecelerateInterpolator());
-        scaleAnimation.setFillAfter(true);//设置动画结束后保持当前的位置（即不返回到动画开始前的位置）
+        scaleAnimation.setFillAfter(true);
         return scaleAnimation;
     }
 
     private Animation getTranslateAniY(float formY,float toY,long duration){
         Animation translateAnimation=new TranslateAnimation(0, 0, formY, toY);
 
-        translateAnimation.setDuration(duration);//设置动画持续时间为3秒
-        translateAnimation.setInterpolator(new DecelerateInterpolator());//设置动画插入器
+        translateAnimation.setDuration(duration);
+        translateAnimation.setInterpolator(new DecelerateInterpolator());
         translateAnimation.setFillAfter(true);
         return translateAnimation;
     }
 
     private Animation getAlphaAni(float from,float to,long duration){
         Animation alphaAnimation=new AlphaAnimation(from, to);
-        alphaAnimation.setDuration(duration);//设置动画持续时间为3秒
+        alphaAnimation.setDuration(duration);
         alphaAnimation.setFillAfter(true);
         return alphaAnimation;
     }
@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity{
     private void runResultAction(){
         int fromY = text_express.getTop();
         int toY = text_result.getTop();
-
+        
         AnimationSet ani_1=new AnimationSet(true);
-        ani_1.addAnimation(getTranslateAniY(100,0.0f,200));
-        ani_1.addAnimation(getAlphaAni(0.1f,1.0f,200));
+        ani_1.addAnimation(getTranslateAniY(300,0.0f,200));
+        ani_1.addAnimation(getAlphaAni(0.4f,1.0f,200));
         ani_1.setFillAfter(true);
         text_express.startAnimation(ani_1);
 
@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity{
         ani_2.addAnimation(getScaleAni(1.0f,0.6f,200));
         ani_2.setFillAfter(true);
         text_result.startAnimation(ani_2);
-
-//        text_result.startAnimation(getTranslateAniY(fromY - toY,0.0f,200));
-//        text_result.setAnimation(getScaleAni(1.0f,0.6f,200));
     }
     public void onClick(View v)
     {
