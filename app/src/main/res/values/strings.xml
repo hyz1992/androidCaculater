@@ -1,4 +1,34 @@
 <resources>
     <string name="app_name">计算器</string>
-    <string name="notOpen">科学计算器暂未开放</string>
+    <string name="donotAllow">您的输入不合法</string>
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="point">.</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+    <string name="multiply">×</string>
+    <string name="devide">÷</string>
+    <string name="equal">=</string>
+    <string name="clear">C</string><!-- 清零-->
+    <string name="delete">D</string><!-- 后退-->
+    <string name="factorial">!</string><!-- 阶乘-->
+    <string name="power">^</string><!-- 开方-->
+    <string name="sqrt">√</string><!-- 开根号-->
+    <string name="pi">π</string><!-- 开根号-->
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="ln">ln</string>
+    <string name="log">log</string>
+    <string name="bracket_left">(</string>
+    <string name="bracket_right">)</string>
+    <string name="e">e</string>
 </resources>
