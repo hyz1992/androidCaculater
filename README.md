@@ -5,9 +5,12 @@
 
 计算器，模仿小米。
 
-普通型，简单四则运算\n
+普通型，简单四则运算
+科学性，可以计算开方、三角函数等
+
+
 ![image](https://github.com/hyz1992/androidCaculater/raw/master/preview/normal.png)
 
 
-![科学性，可以计算开方、三角函数等](https://github.com/hyz1992/androidCaculater/raw/master/preview/scientific.png)
+![](https://github.com/hyz1992/androidCaculater/raw/master/preview/scientific.png)
 
