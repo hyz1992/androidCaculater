@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">计算器</string>
-    <string name="donotAllow">您的输入不合法</string>
+    <string name="supportSimpleOnly">暂时只支持简单四则运算</string>
+    <string name="wrongful">您的输入不合法</string>
+    <string name="error">出错</string>
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="_2">2</string>

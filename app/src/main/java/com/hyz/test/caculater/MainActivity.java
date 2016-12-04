@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity{
     {
         Button btn = (Button)v;
         int id = btn.getId();
-        String str = "";
+        String str_input = "";
         switch(id)
         {
             case R.id.btn_0:
@@ -184,12 +184,14 @@ public class MainActivity extends AppCompatActivity{
             case R.id.btn_factorial://!
             case R.id.btn_power://开方
             case R.id.btn_sqrt://开根号
-                str = btn.getText().toString();
-                str +="";
+                str_input = btn.getText().toString();
+                str_input +="";
                 break;
             case R.id.btn_e://自然底数
+                str_input = "e";
                 break;
             case R.id.btn_pi://圆周率，π
+                str_input = "π";
                 break;
             case R.id.btn_equal:
             case R.id.btn_equal_2:
@@ -200,8 +202,17 @@ public class MainActivity extends AppCompatActivity{
                 String expressStr = text_express.getText().toString();
                 text_result.setText(expressStr);
                 m_express.clear();
-                m_express.add(resultStr);
                 text_express.setText(resultStr);
+
+                if(resultStr.equals(Manger.NOSUPPORT)){
+                    Toast.makeText(this, R.string.supportSimpleOnly, Toast.LENGTH_SHORT).show();
+                    resultStr="0";
+                }else if(resultStr.equals(Manger.ERROR)){
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+                    resultStr="0";
+                }
+
+                m_express.add(resultStr);
                 m_tmpStr = resultStr;
                 runResultAction();
                 break;
@@ -212,6 +223,7 @@ public class MainActivity extends AppCompatActivity{
                 m_express.add(m_tmpStr);
                 text_express.setText(m_tmpStr);
                 text_result.setText("");
+                m_isNoInput = true;
                 break;
             case R.id.btn_delete:
             case R.id.btn_delete_2:
@@ -221,6 +233,7 @@ public class MainActivity extends AppCompatActivity{
                     m_express.add(m_tmpStr);
                     text_express.setText(m_tmpStr);
                     text_result.setText("");
+                    m_isNoInput = true;
                     return;
                 }
                 String lastStr = m_express.get(m_express.size()-1);
@@ -246,59 +259,76 @@ public class MainActivity extends AppCompatActivity{
                 break;
         }
 
-        if(!str.equals("")){
-            if(str.equals(".")){
-                if(Manger.isNum(m_tmpStr)&&m_tmpStr.indexOf(".")==-1){
-                    m_tmpStr+=str;
-                    m_express.set(m_express.size()-1,m_tmpStr);
+        if(!str_input.equals("")){
+            View _left = findViewById(R.id.btn_bracket_left);
+            int _type = m_manger.checkInput(m_tmpStr,str_input);
+
+            if(")".equals(str_input)&&_type==Manger.CheckRet.RET_1){//当输入的时“)”，还得判断前面有匹配的“(”
+
+                int left_num  = 0;
+                int right_num = 0;
+                for(int i=0;i<m_express.size();i++){
+                    if("(".equals(m_express.get(i)))
+                        left_num++;
+                    else if(")".equals(m_express.get(i)))
+                        right_num++;
                 }
-                m_isNoInput = false;
-            }else {
-                if(Manger.isNum(m_tmpStr)||m_tmpStr.indexOf(".")!=-1){//上次输入的是数字
-                    if(Manger.isNum(str)){//这次也是数字
-                        if(m_isNoInput){//还没有输入
-                            m_tmpStr=str;
-                        }else{
-                            m_tmpStr+=str;
+                if(!(left_num>right_num))
+                    _type = Manger.CheckRet.RET_4;
+            }else{
+                if(m_isNoInput){
+                    if(Manger.isNum(str_input) && _type==Manger.CheckRet.RET_2)
+                        _type = Manger.CheckRet.RET_3;
+                    else if(_type==Manger.CheckRet.RET_4&&Manger.checkIs_ORDER_1(str_input)){
+                        _type = Manger.CheckRet.RET_3;
+                        if(Manger.mustHasBracketBehind(str_input)){
+                            _type = Manger.CheckRet.RET_6;
                         }
-
-                        m_express.set(m_express.size()-1,m_tmpStr);
-                    }else if(!m_manger.canBehindNumber(str)){//这次是操作符，但不合法，如“9(”、“9sin”
-                        Toast.makeText(this, R.string.donotAllow, Toast.LENGTH_SHORT).show();
-                    }
-                    else{//这次是操作符，但合法
-                        m_express.add(str);
-                        m_tmpStr = str;
-                    }
-                }else{//上次输入的是操作符
-                    if(Manger.isNum(str)) {//这次是数字
-                        if(!m_manger.canFrontNumber(m_tmpStr)){//但是不合法，如")9"、"!9"
-                            Toast.makeText(this, R.string.donotAllow, Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            m_express.add(str);
-                            m_tmpStr = str;
-                        }
-
-                    }else if(m_manger.allowTwoOperator(m_tmpStr,str)){//两次输入字符，合法
-                        m_express.add(str);
-                        m_tmpStr = str;
-                    }
-                    else{//两次输入字符，但不合法
-                        m_express.set(m_express.size()-1,str);
-                        m_tmpStr = str;
                     }
                 }
-                m_isNoInput = false;
             }
-
+            switch (_type){
+                case Manger.CheckRet.RET_1://可新建添加
+                    m_express.add(str_input);
+                    m_tmpStr = str_input;
+                    break;
+                case Manger.CheckRet.RET_2://添加到str_1末尾
+                    m_tmpStr = m_express.get(m_express.size()-1);
+                    m_tmpStr+=str_input;
+                    m_express.set(m_express.size()-1,m_tmpStr);
+                    break;
+                case Manger.CheckRet.RET_3://替换m_tmpStr
+                    m_tmpStr = m_express.get(m_express.size()-1);
+                    m_tmpStr=str_input;
+                    m_express.set(m_express.size()-1,m_tmpStr);
+                    break;
+                case Manger.CheckRet.RET_4://不可输入
+                    Toast.makeText(this, R.string.wrongful, Toast.LENGTH_SHORT).show();
+                    break;
+                case Manger.CheckRet.RET_5:
+                    m_express.add(str_input);
+                    m_tmpStr = str_input;
+                    this.onClick(_left);
+                    break;
+                case Manger.CheckRet.RET_6:
+                    m_tmpStr = m_express.get(m_express.size()-1);
+                    m_tmpStr=str_input;
+                    m_express.set(m_express.size()-1,m_tmpStr);
+                    this.onClick(_left);
+                default:break;
+            }
             String _text="";
             for(int i=0;i<m_express.size();i++){
                 _text+=(m_express.get(i));
             }
             text_express.setText(_text);
+            m_isNoInput = false;
         }
-        Log.d(TAG,str);
+        Log.d(TAG,str_input);
+    }
+
+    private void checkInput(String str){
+
     }
 
 }
