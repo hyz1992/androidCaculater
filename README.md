@@ -6,7 +6,7 @@
 计算器，模仿小米。
 
 普通型，简单四则运算
-![image](http://github.com/hyz1992/androidCaculater/raw/master/preview/normal.png)
+![image](https://github.com/hyz1992/androidCaculater/preview/normal.png)
 
 科学性，可以计算开方、三角函数等
-![image](http://github.com/hyz1992/androidCaculater/raw/master/preview/scientific.png)
+![image](https://github.com/hyz1992/androidCaculater/preview/scientific.png)
