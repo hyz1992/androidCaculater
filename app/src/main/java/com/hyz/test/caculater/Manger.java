@@ -316,10 +316,10 @@ public class Manger {
                             value = Math.tan(radian);
                             break;
                         case "log":
-                            value = Math.log10(radian);
+                            value = Math.log10(op_1);
                             break;
                         case "ln":
-                            value = Math.log(radian);
+                            value = Math.log(op_1);
                             break;
                         case "√":
                             value = Math.sqrt(op_1);
